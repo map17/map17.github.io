@@ -32,10 +32,7 @@ Bennett</div>
         </div>
       </div>
 
-      <div class="container"
-	   onClick="pop('individuals/Bowman/index.html')" position:fixed;
-overflow-x:auto;overflow-y:scroll;bottom:0;left:0;right:0;top:0;
-z-index:9999;>
+      <div class="container" onClick="pop('individuals/Bowman/index.html')">
         <img src="individuals/Bowman/profile/Thumb.gif" alt="Bowman" class="image">
         <div class="overlay">
           <div class="text">Chloe
@@ -219,7 +216,9 @@ Zhu</div>
 
       <!-- The Modal -->
       <div id="TheModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" position:fixed;
+overflow-x:auto;overflow-y:scroll;bottom:0;left:0;right:0;top:0;
+z-index:9999;>
           <span class="close" onClick="hide()" style="padding-top:5px; padding-right:10px;">&times;</span>
           <div id="TheModalContent" style="width:100%; height:90%;"></div>
         </div>
