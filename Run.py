@@ -201,7 +201,7 @@ for row in csvReader:
     foutIndividual.write( '    <div style="text-align:center">\n' )
 
     for iImage in range( nImages ):
-        foutIndividual.write( '      <span class="dot" onclick="currentSlide({:d})"></span> \n'.format( iImage ) )
+        foutIndividual.write( '      <span class="dot" onclick="currentSlide({:d})"></span> \n'.format( iImage + 1 ) )
 
     foutIndividual.write( '    </div>\n\n' )
     foutIndividual.write( '    <p>\n\n' )
