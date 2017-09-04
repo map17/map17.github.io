@@ -10,6 +10,7 @@ import string
 import random
 import json
 import Commands
+import shutil
 
 from PIL import Image
 
@@ -90,10 +91,13 @@ for row in csvReader:
     if not os.path.exists( os.path.join( directory, 'images' ) ):
         os.makedirs( os.path.join( directory, 'images' ) )
 
+    dirContent = os.path.join( '/Users/john/Documents/UAL-LCC/MAP17.Website.Content',
+                               sName ).replace( '\'', '_' )
 
+        
     # Create a random text document if none exists
 
-    fileStatement = os.path.join( directory, 'text', 'statement.txt' )
+    fileStatement = os.path.join( dirContent, 'StatementText', 'statement.txt' )
     
     if not os.path.exists( fileStatement ):
 
@@ -163,17 +167,26 @@ for row in csvReader:
 
     # Create the image slideshow
 
-    fileImages = glob.glob( os.path.join( directory, 'images', '*.jpg' ) )
+    fileImages = glob.glob( os.path.join( dirContent, 'OptionalSelectedImages', '*.jpg' ) )
     nImages = len( fileImages )
     
     foutIndividual.write( '    <div class="slideshow-container">\n\n' )
 
-    for iImage, fileImage in zip( range( nImages ), fileImages ):
-    
+    for iImage, fileSrcImage in zip( range( nImages ), fileImages ):
+
+        fileDestImage = os.path.join( directory, 'images', os.path.basename( fileSrcImage ) )
+        
+        if ( ( not os.path.exists( fileDestImage ) ) or
+             ( os.stat( fileSrcImage ).st_mtime - os.stat( fileDestImage ).st_mtime > 1 ) ):
+
+            print 'Copying:', fileSrcImage, 'to', fileDestImage
+            shutil.copyfile( fileSrcImage, fileDestImage )
+
+            
         foutIndividual.write( '    <div class="mySlides fade">\n' )
         foutIndividual.write( '      <div class="numbertext">{:d} of {:d}</div>\n'.format( 1 + iImage,
                                                                                            nImages ) )
-        foutIndividual.write( '      <img src="../../{:s}" style="width:100%">\n'.format( fileImage ) )
+        foutIndividual.write( '      <img src="../../{:s}" style="width:100%">\n'.format( fileDestImage ) )
         #foutIndividual.write( '      <div class="text">Figure {:d}</div>\n'.format( 1 + iImage ) )
         foutIndividual.write( '    </div>\n\n' )
 
@@ -236,7 +249,7 @@ for row in csvReader:
     
     # Create the profile thumbnail images
 
-    fileProfile = glob.glob( os.path.join( directory, 'profile', '*.jpg' ) )[ 0 ]
+    fileProfile = glob.glob( os.path.join( dirContent, 'ThumbnailImage', '*.jpg' ) )[ 0 ]
 
     fileThumb     = os.path.join( directory, 'profile', 'Thumb.gif' )
     
