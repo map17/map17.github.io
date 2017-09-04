@@ -186,7 +186,7 @@ for row in csvReader:
         foutIndividual.write( '    <div class="mySlides fade">\n' )
         foutIndividual.write( '      <div class="numbertext">{:d} of {:d}</div>\n'.format( 1 + iImage,
                                                                                            nImages ) )
-        foutIndividual.write( '      <img src="../../{:s}" style="height:128px;">\n'.format( fileDestImage ) )
+        foutIndividual.write( '      <img src="../../{:s}" style="width:100%;">\n'.format( fileDestImage ) )
         #foutIndividual.write( '      <div class="text">Figure {:d}</div>\n'.format( 1 + iImage ) )
         foutIndividual.write( '    </div>\n\n' )
 
