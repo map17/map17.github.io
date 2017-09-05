@@ -18,7 +18,7 @@
       if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
       if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
       
-      window.alert('Your OS: ' + OSName + ' ' + navigator.appVersion );
+      console.log('Your OS: ' + OSName + ' ' + navigator.appVersion );
 
       $(function() {  $("#LoadTitle").load("title.html");  } );
       $(function() {   $("#LoadMain").load("main.html");   } );
