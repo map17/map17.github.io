@@ -126,7 +126,7 @@ a:active {
     right: 0;
     display: block;
     margin: 5% auto;
-    -webkit-overflow-scrolling: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* The Close Button */
