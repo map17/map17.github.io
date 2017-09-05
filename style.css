@@ -113,6 +113,7 @@ a:active {
     background-color: rgba(0,0,0,0.6);
     opacity: 1;
     overflow: initial;
+    -webkit-overflow-scrolling: auto;
 }
 
 /* Modal Content */
@@ -127,7 +128,6 @@ a:active {
     right: 0;
     display: block;
     margin: 5% auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 /* The Close Button */
