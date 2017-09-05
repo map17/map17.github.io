@@ -127,6 +127,7 @@ a:active {
     right: 0;
     display: block;
     margin: 5% auto;
+    overflow: hidden;    
 }
 
 /* The Close Button */
