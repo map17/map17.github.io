@@ -109,7 +109,6 @@ a:active {
     max-height: 100%;
     overflow-x: auto;
     overflow-y: scroll;
-    -webkit-overflow-scrolling: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.6);
     opacity: 1;
@@ -127,7 +126,7 @@ a:active {
     right: 0;
     display: block;
     margin: 5% auto;
-    overflow: hidden;    
+    -webkit-overflow-scrolling: auto;
 }
 
 /* The Close Button */
