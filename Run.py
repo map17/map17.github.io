@@ -15,6 +15,13 @@ import shutil
 from PIL import Image
 
 
+imSuffixes = ( '*.jpg', '*.JPG',
+               '*.jpeg', '*.JPEG',
+               '*.png', '*.PNG',
+               '*.tif', '*.TIF',
+               '*.tiff', '*.TIFF' )
+
+
 
 # Open the menu sidebar html file
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -167,7 +174,10 @@ for row in csvReader:
 
     # Create the image slideshow
 
-    fileImages = glob.glob( os.path.join( dirContent, 'OptionalSelectedImages', '*.jpg' ) )
+    fileImages = []
+    for suffix in imSuffixes:
+        fileImages.extend( glob.glob( os.path.join( dirContent, 'OptionalSelectedImages', suffix ) ) )
+
     nImages = len( fileImages )
     
     foutIndividual.write( '    <div class="slideshow-container">\n\n' )
@@ -179,9 +189,11 @@ for row in csvReader:
         if ( ( not os.path.exists( fileDestImage ) ) or
              ( os.stat( fileSrcImage ).st_mtime - os.stat( fileDestImage ).st_mtime > 1 ) ):
 
+            command = 'convert "{:s}" -resize 800 +repage "{:s}"'.format( fileSrcImage, fileDestImage )
             print 'Copying:', fileSrcImage, 'to', fileDestImage
-            shutil.copyfile( fileSrcImage, fileDestImage )
+            print command
 
+            os.system( command )
             
         foutIndividual.write( '    <div class="mySlides fade">\n' )
         foutIndividual.write( '      <div class="numbertext">{:d} of {:d}</div>\n'.format( 1 + iImage,
@@ -247,8 +259,6 @@ for row in csvReader:
 
     
     # Create the profile thumbnail images
-
-    imSuffixes = ( '*.jpg', '*.JPG', '*.png', '*.tif' )
 
     filesProfile = []
     for suffix in imSuffixes:
