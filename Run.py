@@ -153,7 +153,7 @@ for row in csvReader:
     foutIndividual.write( '      }\n' )
 
     foutIndividual.write( '      p {\n' )
-    foutIndividual.write( '        text-indent: 50px;\n' )
+    foutIndividual.write( '        text-indent: 0px;\n' )
     foutIndividual.write( '      }\n' )
 
     foutIndividual.write( '    </style>\n' )
@@ -232,11 +232,7 @@ for row in csvReader:
     foutIndividual.write( '      <p>\n\n' )
     foutIndividual.write( '    </div>\n\n' )
 
-    
-    foutIndividual.write( '\n  </body>\n' )
-    foutIndividual.write( '</html>\n' )
-
-    
+        
     # Add email and website
 
     foutIndividual.write( '    <h4 align=center><a href="mailto:{:s}">{:s}</a></h4>\n\n'.format( email,
@@ -244,16 +240,31 @@ for row in csvReader:
     foutIndividual.write( '    <h4 align=center><a href="{:s}" target="top">{:s}</a></h4>\n\n'.format( website,
                                                                                                        website ) )
     
+    foutIndividual.write( '\n  </body>\n' )
+    foutIndividual.write( '</html>\n' )
+
     foutIndividual.close()        
 
     
     # Create the profile thumbnail images
 
-    fileProfile = glob.glob( os.path.join( dirContent, 'ThumbnailImage', '*.jpg' ) )[ 0 ]
+    imSuffixes = ( '*.jpg', '*.JPG', '*.png', '*.tif' )
+
+    filesProfile = []
+    for suffix in imSuffixes:
+        filesProfile.extend( glob.glob( os.path.join( dirContent, 'ThumbnailImage', suffix ) ) )
+
+    if ( len( filesProfile ) < 1 ):
+        print 'ERROR: No profile image found in:', os.path.join( dirContent, 'ThumbnailImage' )
+        sys.exit(0)
+
+    fileProfile = filesProfile[0]
 
     fileThumb     = os.path.join( directory, 'profile', 'Thumb.gif' )
+
+    print fileProfile, '->', fileThumb
     
-    command = 'convert "{:s}" -resize 256 "{:s}"'.format( fileProfile, fileThumb )
+    command = 'convert "{:s}" -resize 256x256^ -gravity center -crop 256x256+0+0 +repage "{:s}"'.format( fileProfile, fileThumb )
 
     Commands.ExecuteCommand( [ fileThumb ],
                              [ fileProfile ],
