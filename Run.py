@@ -189,7 +189,7 @@ for row in csvReader:
         if ( ( not os.path.exists( fileDestImage ) ) or
              ( os.stat( fileSrcImage ).st_mtime - os.stat( fileDestImage ).st_mtime > 1 ) ):
 
-            command = 'convert "{:s}" -resize 800 +repage "{:s}"'.format( fileSrcImage, fileDestImage )
+            command = 'convert "{:s}" -resize 800x800 +repage -gravity center -extent 800x800 "{:s}"'.format( fileSrcImage, fileDestImage )
             print 'Copying:', fileSrcImage, 'to', fileDestImage
             print command
 
