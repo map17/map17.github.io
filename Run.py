@@ -180,7 +180,7 @@ for row in csvReader:
     foutIndividual.write( '  <body>\n\n' )
 
     if ( flgNonModal ):
-        foutIndividual.write( '     <span class="close" onClick="goBack()" style="padding-top:5px; padding-right:10px;">&times;</span>\n' )
+        foutIndividual.write( '    <span class="close" onClick="goBack()" style="padding-top:0px; padding-right:20px;">&times;</span>\n' )
 
     foutIndividual.write( '    <h2 align=center><i>{:s}</i></h2>\n\n'.format( projTitle ) )
     foutIndividual.write( '    <h3 align=center>{:s} {:s}</h3>\n\n'.format( fName, sName ) )
