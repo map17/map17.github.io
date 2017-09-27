@@ -28,6 +28,7 @@
 
   <body>
 
+      <span class="close" onClick="goBack()" style="padding-top:5px; padding-right:10px;">&times;</span>
     <h2 align=center><i>The Face as Medium</i></h2>
 
     <h3 align=center>Xi Zheng</h3>
@@ -46,7 +47,9 @@
     <p>
 
     <script>
-    showSlides(slideIndex);
+      function goBack() {window.history.back();};
+
+      showSlides(slideIndex);
     </script>
 
     <div>

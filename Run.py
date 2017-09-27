@@ -14,6 +14,8 @@ import shutil
 
 from PIL import Image
 
+flgNonModal = True
+
 
 imSuffixes = ( '*.jpg', '*.JPG',
                '*.jpeg', '*.JPEG',
@@ -127,10 +129,18 @@ for row in csvReader:
         
     fileIndex = os.path.join( directory, 'index.html' )
     
-    foutMenu.write( '      <li><a href="{:s}" target="MainFrame">{:s} {:s}</a></li>\n'.format( fileIndex,
-                                                                                               fName,
-                                                                                               sName ) )
+    if ( flgNonModal ):
+    
+        foutMenu.write( '      <li><a href="{:s}" target="_parent">{:s} {:s}</a></li>\n'.format( fileIndex,
+                                                                                                   fName,
+                                                                                                   sName ) )
+    else:
 
+        foutMenu.write( '      <li><div class="container" onClick="pop({:s})">'.format( "'" + fileIndex + "'" ) )
+        foutMenu.write( '{:s} {:s}'.format( fName, sName ) )
+        foutMenu.write( '</div></li>\n'.format( fName, sName ) )
+        
+        
     # Create a page for each individual
     
     foutIndividual = open( fileIndex, 'wb')
@@ -168,6 +178,10 @@ for row in csvReader:
     foutIndividual.write( '  </head>\n\n' )
     
     foutIndividual.write( '  <body>\n\n' )
+
+    if ( flgNonModal ):
+        foutIndividual.write( '     <span class="close" onClick="goBack()" style="padding-top:5px; padding-right:10px;">&times;</span>\n' )
+
     foutIndividual.write( '    <h2 align=center><i>{:s}</i></h2>\n\n'.format( projTitle ) )
     foutIndividual.write( '    <h3 align=center>{:s} {:s}</h3>\n\n'.format( fName, sName ) )
 
@@ -220,7 +234,11 @@ for row in csvReader:
 
     
     foutIndividual.write( '    <script>\n' )
-    foutIndividual.write( '    showSlides(slideIndex);\n' )
+
+    if ( flgNonModal ):
+        foutIndividual.write( '      function goBack() {window.history.back();};\n\n')    
+
+    foutIndividual.write( '      showSlides(slideIndex);\n' )
     foutIndividual.write( '    </script>\n\n' )
 
 
@@ -280,27 +298,44 @@ for row in csvReader:
                              [ fileProfile ],
                              [ command ],
                              'Creating: ' + fileThumb )
-    
-    foutMain.write( '      <div class="container" onClick="pop({:s})">\n'.format( "'" + fileIndex + "'" ) )
-    foutMain.write( '        <img src="{:s}" alt="{:s}" class="image">\n'.format( fileThumb,
+
+    if ( flgNonModal ):
+
+        foutMain.write( '      <div class="container">\n' )
+        foutMain.write( '        <a target="_parent" href="{:s}">\n'.format( fileIndex ) )
+        foutMain.write( '          <img src="{:s}" alt="{:s}" class="image">\n'.format( fileThumb,
+                                                                                        sName ) )
+        foutMain.write( '        <div class="overlay">\n' )
+        foutMain.write( '          <div class="text">{:s}\n{:s}</div>\n'.format ( fName.replace( ' ', '\n' ),
+                                                                                  sName.replace( ' ', '\n' ) ) )
+        foutMain.write( '        </div>\n' )
+        foutMain.write( '        </a>\n' )
+        foutMain.write( '      </div>\n' )
+        
+    else:
+        
+        foutMain.write( '      <div class="container" onClick="pop({:s})">\n'.format( "'" + fileIndex + "'" ) )
+        foutMain.write( '        <img src="{:s}" alt="{:s}" class="image">\n'.format( fileThumb,
                                                                                   sName ) )
-    foutMain.write( '        <div class="overlay">\n' )
-    foutMain.write( '          <div class="text">{:s}\n{:s}</div>\n'.format ( fName.replace( ' ', '\n' ),
+        foutMain.write( '        <div class="overlay">\n' )
+        foutMain.write( '          <div class="text">{:s}\n{:s}</div>\n'.format ( fName.replace( ' ', '\n' ),
                                                                               sName.replace( ' ', '\n' ) ) )
+        foutMain.write( '        </div>\n' )
+        foutMain.write( '      </div>\n\n' )
+
+
+
+if ( not flgNonModal ):
+    
+    foutMain.write( '      <!-- The Modal -->\n' )
+    foutMain.write( '      <div id="TheModal" class="modal">\n' )
+    foutMain.write( '        <div class="modal-content">\n' )
+    foutMain.write( '          <span class="close" onClick="hide()" style="padding-top:5px; padding-right:10px;">&times;</span>\n' )
+    foutMain.write( '          <div id="TheModalContent" style="width:100%; height:90%;"></div>\n' )
     foutMain.write( '        </div>\n' )
     foutMain.write( '      </div>\n\n' )
 
-
-
-foutMain.write( '      <!-- The Modal -->\n' )
-foutMain.write( '      <div id="TheModal" class="modal">\n' )
-foutMain.write( '        <div class="modal-content">\n' )
-foutMain.write( '          <span class="close" onClick="hide()" style="padding-top:5px; padding-right:10px;">&times;</span>\n' )
-foutMain.write( '          <div id="TheModalContent" style="width:100%; height:90%;"></div>\n' )
-foutMain.write( '        </div>\n' )
-foutMain.write( '      </div>\n\n' )
-
-foutMain.write( '      <script src=\'modal.js\'></script>\n\n' )
+    foutMain.write( '      <script src=\'modal.js\'></script>\n\n' )
      
 foutMain.write( '  </body>\n' )
     
