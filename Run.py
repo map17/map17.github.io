@@ -292,7 +292,7 @@ for row in csvReader:
 
     print fileProfile, '->', fileThumb
     
-    command = 'convert "{:s}" -resize 1024x1024^ -gravity center -crop 1024x32+0+0 +repage "{:s}"'.format( fileProfile, fileThumb )
+    command = 'convert "{:s}" -resize 1024x1024^ -gravity center -crop 1024x64+0+0 +repage "{:s}"'.format( fileProfile, fileThumb )
 
     Commands.ExecuteCommand( [ fileThumb ],
                              [ fileProfile ],
