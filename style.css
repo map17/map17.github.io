@@ -44,18 +44,24 @@ a:active {
 /* ~~~~~~~~ */
 
 .container {
-    display: inline-block;
-    margin: 6px 6px 6px 6px;
+    display: block;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 0;
+    margin-bottom: 0;
     position: relative;
     vertical-align: middle;
     horizontal-align: middle;
-    width: 256px;
+    width: auto;
+    height: 3%;
 }
 
 .image {
     display: block;
-    width: 100%;
-    height: auto;
+    width: 100vw;
+    height: 3vh;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 .overlay {
@@ -78,13 +84,10 @@ a:active {
 
 .text {
     color: white;
-    text-align: center;
-    font-size: 48px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    text-align: left;
+    font-size: 2vh;
+    margin-left: 20%;
+    vertical-align: middle;
 }
 
 
