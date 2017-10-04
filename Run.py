@@ -84,6 +84,8 @@ for row in csvReader:
 
     print sName, fName
 
+    fNameHTML = fName.replace( 'Agnes', 'Agn&egrave;s' )
+    
     # Make relevant directories
     
     directory = os.path.join( 'individuals', sName ).replace( '\'', '_' )
@@ -132,13 +134,13 @@ for row in csvReader:
     if ( flgNonModal ):
     
         foutMenu.write( '      <li><a href="{:s}" target="_parent">{:s} {:s}</a></li>\n'.format( fileIndex,
-                                                                                                   fName,
+                                                                                                   fNameHTML,
                                                                                                    sName ) )
     else:
 
         foutMenu.write( '      <li><div class="container" onClick="pop({:s})">'.format( "'" + fileIndex + "'" ) )
-        foutMenu.write( '{:s} {:s}'.format( fName, sName ) )
-        foutMenu.write( '</div></li>\n'.format( fName, sName ) )
+        foutMenu.write( '{:s} {:s}'.format( fNameHTML, sName ) )
+        foutMenu.write( '</div></li>\n' )
         
         
     # Create a page for each individual
@@ -151,7 +153,7 @@ for row in csvReader:
     foutIndividual.write( '    <link rel="stylesheet" type="text/css" href="../../style.css">\n' )
     foutIndividual.write( '    <link rel="stylesheet" type="text/css" href="../slideshow.css">\n' )
     foutIndividual.write( '    <script src="../slideshow.js"></script>\n' )
-    foutIndividual.write( '    <title>{:s} {:s}</title>\n'.format( fName, sName ) )
+    foutIndividual.write( '    <title>{:s} {:s}</title>\n'.format( fNameHTML, sName ) )
 
     foutIndividual.write( '    <style>\n' )
 
@@ -183,7 +185,7 @@ for row in csvReader:
         foutIndividual.write( '    <span class="close" onClick="goBack()" style="padding-top:0px; padding-right:20px;">&times;</span>\n' )
 
     foutIndividual.write( '    <h2 align=center><i>{:s}</i></h2>\n\n'.format( projTitle ) )
-    foutIndividual.write( '    <h3 align=center>{:s} {:s}</h3>\n\n'.format( fName, sName ) )
+    foutIndividual.write( '    <h3 align=center>{:s} {:s}</h3>\n\n'.format( fNameHTML, sName ) )
 
 
     # Create the image slideshow
@@ -306,7 +308,7 @@ for row in csvReader:
         foutMain.write( '          <img src="{:s}" alt="{:s}" class="image">\n'.format( fileThumb,
                                                                                         sName ) )
         foutMain.write( '        <div class="overlay">\n' )
-        foutMain.write( '          <div class="text">{:s}\n{:s}</div>\n'.format ( fName.replace( ' ', '\n' ),
+        foutMain.write( '          <div class="text">{:s}\n{:s}</div>\n'.format ( fNameHTML.replace( ' ', '\n' ),
                                                                                   sName.replace( ' ', '\n' ) ) )
         foutMain.write( '        </div>\n' )
         foutMain.write( '        </a>\n' )
@@ -318,7 +320,7 @@ for row in csvReader:
         foutMain.write( '        <img src="{:s}" alt="{:s}" class="image">\n'.format( fileThumb,
                                                                                   sName ) )
         foutMain.write( '        <div class="overlay">\n' )
-        foutMain.write( '          <div class="text">{:s}\n{:s}</div>\n'.format ( fName.replace( ' ', '\n' ),
+        foutMain.write( '          <div class="text">{:s}\n{:s}</div>\n'.format ( fNameHTML.replace( ' ', '\n' ),
                                                                               sName.replace( ' ', '\n' ) ) )
         foutMain.write( '        </div>\n' )
         foutMain.write( '      </div>\n\n' )
