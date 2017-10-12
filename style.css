@@ -64,6 +64,12 @@ a:active {
     object-fit: cover;
 }
 
+#logo {
+    vertical-align: middle;
+    padding: 10px;
+    height: "64";
+}
+
 .overlay {
     position: absolute;
     top: 0;
