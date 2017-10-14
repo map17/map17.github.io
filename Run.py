@@ -102,7 +102,7 @@ for row in csvReader:
     if not os.path.exists( os.path.join( directory, 'images' ) ):
         os.makedirs( os.path.join( directory, 'images' ) )
 
-    dirContent = os.path.join( '/Users/john/Documents/UAL-LCC/MAP17.Website.Content',
+    dirContent = os.path.join( '/Users/john/Documents/UAL-LCC/MAP17.Website.Content.Old',
                                sName ).replace( '\'', '_' )
 
         
