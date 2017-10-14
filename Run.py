@@ -212,15 +212,15 @@ for row in csvReader:
             os.system( command )
             
         foutIndividual.write( '    <div class="mySlides fade">\n' )
-        foutIndividual.write( '      <div class="numbertext">{:d} of {:d}</div>\n'.format( 1 + iImage,
+        foutIndividual.write( '      <div class="numbertext" style="color:grey">{:d} of {:d}</div>\n'.format( 1 + iImage,
                                                                                            nImages ) )
         foutIndividual.write( '      <img src="../../{:s}" style="width:100%;">\n'.format( fileDestImage ) )
         #foutIndividual.write( '      <div class="text">Figure {:d}</div>\n'.format( 1 + iImage ) )
         foutIndividual.write( '    </div>\n\n' )
 
 
-    foutIndividual.write( '    <a class="prev" onclick="plusSlides(-1)"><</a>\n' )
-    foutIndividual.write( '    <a class="next" onclick="plusSlides(1)">></a>\n\n' )
+    foutIndividual.write( '    <a class="prev" onclick="plusSlides(-1)" style="color:grey">&#10094;</a>\n' )
+    foutIndividual.write( '    <a class="next" onclick="plusSlides(1)" style="color:grey">&#10095;</a>\n\n' )
 
     foutIndividual.write( '    </div>\n' )
     foutIndividual.write( '    <br>\n\n' )
