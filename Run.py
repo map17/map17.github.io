@@ -70,7 +70,7 @@ foutMain.write( '  <body>\n' )
 # ~~~~~~~~~~~~~~~~~~~
 
 finCSV = open( 'people.csv', 'rb')
-csvReader = csv.reader( finCSV, delimiter=',', quotechar='|')
+csvReader = csv.reader( finCSV, delimiter='|', quotechar='^')
 
 profiles = []
 
@@ -93,22 +93,13 @@ for row in csvReader:
     if not os.path.exists( directory ):
         os.makedirs( directory )
 
-    if not os.path.exists( os.path.join( directory, 'profile' ) ):
-        os.makedirs( os.path.join( directory, 'profile' ) )
-
-    if not os.path.exists( os.path.join( directory, 'text' ) ):
-        os.makedirs( os.path.join( directory, 'text' ) )
-
-    if not os.path.exists( os.path.join( directory, 'images' ) ):
-        os.makedirs( os.path.join( directory, 'images' ) )
-
-    dirContent = os.path.join( '/Users/john/Documents/UAL-LCC/MAP17.Website.Content.Old',
+    dirContent = os.path.join( '/Users/john/Documents/UAL-LCC/MAP17.Website.Content',
                                sName ).replace( '\'', '_' )
 
         
     # Create a random text document if none exists
 
-    fileStatement = os.path.join( dirContent, 'StatementText', 'statement.txt' )
+    fileStatement = os.path.join( dirContent, 'statement.txt' )
     
     if not os.path.exists( fileStatement ):
 
@@ -192,7 +183,7 @@ for row in csvReader:
 
     fileImages = []
     for suffix in imSuffixes:
-        fileImages.extend( glob.glob( os.path.join( dirContent, 'OptionalSelectedImages', suffix ) ) )
+        fileImages.extend( glob.glob( os.path.join( dirContent, suffix ) ) )
 
     nImages = len( fileImages )
     
@@ -200,12 +191,13 @@ for row in csvReader:
 
     for iImage, fileSrcImage in zip( range( nImages ), fileImages ):
 
-        fileDestImage = os.path.join( directory, 'images', os.path.basename( fileSrcImage ) )
-        
+        fileDestImage = os.path.join( directory,
+                                      os.path.splitext( os.path.basename( fileSrcImage ) )[0] + '.jpg' ).replace( ' ', '_' )
+
         if ( ( not os.path.exists( fileDestImage ) ) or
              ( os.stat( fileSrcImage ).st_mtime - os.stat( fileDestImage ).st_mtime > 1 ) ):
 
-            command = 'convert "{:s}" -resize 800x800 +repage -gravity center -extent 800x800 "{:s}"'.format( fileSrcImage, fileDestImage )
+            command = 'convert "{:s}" -flatten -resize 800x800 +repage -gravity center -extent 800x800 "{:s}"'.format( fileSrcImage, fileDestImage )
             print 'Copying:', fileSrcImage, 'to', fileDestImage
             print command
 
@@ -282,19 +274,19 @@ for row in csvReader:
 
     filesProfile = []
     for suffix in imSuffixes:
-        filesProfile.extend( glob.glob( os.path.join( dirContent, 'ThumbnailImage', suffix ) ) )
+        filesProfile.extend( glob.glob( os.path.join( dirContent, suffix ) ) )
 
     if ( len( filesProfile ) < 1 ):
-        print 'ERROR: No profile image found in:', os.path.join( dirContent, 'ThumbnailImage' )
+        print 'ERROR: No profile image found in:', dirContent
         sys.exit(0)
 
     fileProfile = filesProfile[0]
 
-    fileThumb     = os.path.join( directory, 'profile', 'Thumb.gif' )
+    fileThumb     = os.path.join( directory, 'Thumb.jpg' )
 
     print fileProfile, '->', fileThumb
     
-    command = 'convert "{:s}" -resize 1024x1024^ -gravity center -crop 1024x64+0+0 +repage "{:s}"'.format( fileProfile, fileThumb )
+    command = 'convert "{:s}" -flatten -resize 1024x1024^ -gravity center -crop 1024x64+0+0 +repage "{:s}"'.format( fileProfile, fileThumb )
 
     Commands.ExecuteCommand( [ fileThumb ],
                              [ fileProfile ],
