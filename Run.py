@@ -261,7 +261,7 @@ for row in csvReader:
 
     foutIndividual.write( '    <h4 align=center><a href="mailto:{:s}">{:s}</a></h4>\n\n'.format( email,
                                                                                                  email ) )
-    foutIndividual.write( '    <h4 align=center><a href="{:s}" target="top">{:s}</a></h4>\n\n'.format( website,
+    foutIndividual.write( '    <h4 align=center><a href="http://{:s}" target="top">{:s}</a></h4>\n\n'.format( website,
                                                                                                        website ) )
     
     foutIndividual.write( '\n  </body>\n' )
