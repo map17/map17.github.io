@@ -1,9 +1,7 @@
-function GoBack()
-{
+function GoBack() {
     window.history.back();      
 };
 
-function GoUpTwo()
-{
+function GoUpTwo() {
     window.location.href="../../index.html";
 };
