@@ -142,8 +142,9 @@ for row in csvReader:
     foutIndividual.write( '<html>\n' )
     foutIndividual.write( '  <head>\n' )
     foutIndividual.write( '    <link rel="stylesheet" type="text/css" href="../../style.css">\n' )
-    foutIndividual.write( '    <link rel="stylesheet" type="text/css" href="../slideshow.css">\n' )
-    foutIndividual.write( '    <script src="../slideshow.js"></script>\n' )
+    foutIndividual.write( '    <link rel="stylesheet" type="text/css" href="../slideshow.css">\n\n' )
+    foutIndividual.write( '    <script src="../../functions.js"></script>\n' )
+    foutIndividual.write( '    <script src="../slideshow.js"></script>\n\n' )
     foutIndividual.write( '    <title>{:s} {:s}</title>\n'.format( fNameHTML, sName ) )
 
     foutIndividual.write( '    <style>\n' )
@@ -173,7 +174,7 @@ for row in csvReader:
     foutIndividual.write( '  <body>\n\n' )
 
     if ( flgNonModal ):
-        foutIndividual.write( '    <span class="close" onClick="goBack()" style="padding-top:0px; padding-right:20px;">&times;</span>\n' )
+        foutIndividual.write( '    <span class="close" onClick="GoUpTwo()" style="padding-top:0px; padding-right:20px;">&times;</span>\n' )
 
     foutIndividual.write( '    <h2 align=center><i>{:s}</i></h2>\n\n'.format( projTitle ) )
     foutIndividual.write( '    <h3 align=center>{:s} {:s}</h3>\n\n'.format( fNameHTML, sName ) )
@@ -228,10 +229,6 @@ for row in csvReader:
 
     
     foutIndividual.write( '    <script>\n' )
-
-    if ( flgNonModal ):
-        foutIndividual.write( '      function goBack() {window.history.back();};\n\n')    
-
     foutIndividual.write( '      showSlides(slideIndex);\n' )
     foutIndividual.write( '    </script>\n\n' )
 
