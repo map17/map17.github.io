@@ -143,7 +143,7 @@ for row in csvReader:
     foutIndividual.write( '  <head>\n' )
     foutIndividual.write( '    <link rel="stylesheet" type="text/css" href="../../style.css">\n' )
     foutIndividual.write( '    <link rel="stylesheet" type="text/css" href="../slideshow.css">\n\n' )
-    foutIndividual.write( '    <script src="../../functions.js"></script>\n' )
+    foutIndividual.write( '    <script src="../../misc.js"></script>\n' )
     foutIndividual.write( '    <script src="../slideshow.js"></script>\n\n' )
     foutIndividual.write( '    <title>{:s} {:s}</title>\n'.format( fNameHTML, sName ) )
 
